@@ -54,6 +54,8 @@ public class TunerGUI extends JFrame
     deviceName = new JComboBox();
     deviceName.setPreferredSize( new Dimension( 20,5 ) );
 
+    String[] desc = tunerRecorder.getAudioDeviceDescriptions();
+    for(String s : desc) deviceName.addItem( s );
 
     recordButton = new JButton(  );
     recordButton.setText( "Record" );
@@ -75,9 +77,6 @@ public class TunerGUI extends JFrame
     imageLabel.setIcon( haltImage );
     imageLabel.setSize( 50,50 );
 
-
-
-
   }
 
   private void initMIGLayouts()
@@ -89,7 +88,6 @@ public class TunerGUI extends JFrame
     add(imageLabel);
     add(recordButton);
     pack();
-
   }
 
 
@@ -98,13 +96,13 @@ public class TunerGUI extends JFrame
     recording = !recording;
     if ( recording )
     {
-      imageLabel.setIcon( haltImage );
+      imageLabel.setIcon( recordingImage );
       recordButton.setText( "Stop" );
       tunerRecorder.record();
     }
     else
     {
-      imageLabel.setIcon( recordingImage );
+      imageLabel.setIcon( haltImage );
       recordButton.setText( "Record" );
       tunerRecorder.stopRecording();
     }
