@@ -1,6 +1,8 @@
 package tomb.tuner.gui;
 
 import net.miginfocom.swing.MigLayout;
+import tomb.tuner.recorder.RecordAction;
+import tomb.tuner.recorder.StopAction;
 import tomb.tuner.recorder.TunerRecorder;
 
 import javax.swing.*;
@@ -25,6 +27,8 @@ public class TunerGUI extends JFrame
   private ImageIcon haltImage;
   private JLabel imageLabel;
 
+  private JButton playbackButton; // for testing audio capturing
+
   
   public TunerGUI()
   {
@@ -46,7 +50,7 @@ public class TunerGUI extends JFrame
     setTitle( "Tomb Instrument Tuner!" );
     setDefaultCloseOperation( WindowConstants.EXIT_ON_CLOSE );
 
-    tunerRecorder = new TunerRecorder();
+    tunerRecorder = TunerRecorder.getInstance();
 
     deviceLabel = new JLabel(  );
     deviceLabel.setText( "Device:" );
@@ -68,6 +72,17 @@ public class TunerGUI extends JFrame
       }
     } );
 
+    playbackButton = new JButton(  );
+    playbackButton.setText( "Playback!" );
+    playbackButton.addActionListener( new ActionListener()
+    {
+      @Override
+      public void actionPerformed( final ActionEvent e )
+      {
+        handlePlaybackAction();
+      }
+    } );
+
     noteLabel = new JLabel(  );
     noteLabel.setText( "Note:" );
 
@@ -79,6 +94,11 @@ public class TunerGUI extends JFrame
 
   }
 
+  private void handlePlaybackAction()
+  {
+    tunerRecorder.playback();
+  }
+
   private void initMIGLayouts()
   {
     MigLayout layout = new MigLayout(  );
@@ -87,6 +107,7 @@ public class TunerGUI extends JFrame
     add( deviceName, "wrap" );
     add(imageLabel);
     add(recordButton);
+    add(playbackButton);
     pack();
   }
 
@@ -98,13 +119,14 @@ public class TunerGUI extends JFrame
     {
       imageLabel.setIcon( recordingImage );
       recordButton.setText( "Stop" );
-      tunerRecorder.record();
+      new Thread(new RecordAction()).start();
+
     }
     else
     {
       imageLabel.setIcon( haltImage );
       recordButton.setText( "Record" );
-      tunerRecorder.stopRecording();
+      new Thread(new StopAction()).start();
     }
   }
 
