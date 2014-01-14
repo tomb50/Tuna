@@ -1,4 +1,4 @@
-package tomb.tuner.gui;
+package tomb.tuner.view;
 
 import java.util.Arrays;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package tomb.tuner.recorder;
+package tomb.tuner.model;
 
 import javax.sound.sampled.*;
 import java.io.ByteArrayOutputStream;
@@ -6,9 +6,9 @@ import java.io.ByteArrayOutputStream;
 /**
  * Created with IntelliJ IDEA. User: tombeadman Date: 29/12/2013 Time: 14:11
  */
-public class TunerRecorder
+public class TunerModel
 {
-  private static TunerRecorder instance = null;
+  private static TunerModel instance = null;
   static Mixer.Info[] mixer_info = AudioSystem.getMixerInfo();
   private static boolean isRecording = false;
   private AudioFormat format;
@@ -19,16 +19,8 @@ public class TunerRecorder
   byte[] data; //temp stream data
   byte[] datamod; // manuipluated data sent back to output stream
 
-  public static TunerRecorder getInstance()
-  {
-    if ( instance == null )
-    {
-      instance = new TunerRecorder();
-    }
-    return instance;
-  }
 
-  protected TunerRecorder()
+  public TunerModel()
   {
 
     format = new AudioFormat( AudioFormat.Encoding.PCM_SIGNED,
@@ -42,7 +34,7 @@ public class TunerRecorder
     catch ( LineUnavailableException lue )
     {
     }
-    ;
+
     data = new byte[microphoneLine.getBufferSize() / 5];
   }
 

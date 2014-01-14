@@ -1,4 +1,4 @@
-package tomb.tuner.gui;
+package tomb.tuner.view;
 
 import javax.swing.*;
 import java.util.HashSet;

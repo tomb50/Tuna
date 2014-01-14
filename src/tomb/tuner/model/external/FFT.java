@@ -17,7 +17,7 @@
  *  See the file "COPYING" for the text of the license.
  */
 
-package com.meapsoft;
+package tomb.tuner.model.external;
 
 
 public class FFT

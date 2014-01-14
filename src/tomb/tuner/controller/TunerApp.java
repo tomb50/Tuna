@@ -1,7 +1,9 @@
-package tomb.tuner.gui;
+package tomb.tuner.controller;
+
+import tomb.tuner.model.TunerModel;
+import tomb.tuner.view.TunerView;
 
 import java.awt.*;
-import java.awt.image.renderable.RenderableImageProducer;
 
 /**
  * Created with IntelliJ IDEA. User: tombeadman Date: 29/12/2013 Time: 14:16
@@ -16,7 +18,7 @@ public class TunerApp
       @Override
       public void run()
       {
-        new TunerGUI().setVisible( true );
+       TunerController.getInstance( new TunerModel(), new TunerView() );
       }
     } );
   }

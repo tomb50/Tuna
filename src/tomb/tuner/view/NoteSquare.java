@@ -1,4 +1,4 @@
-package tomb.tuner.gui;
+package tomb.tuner.view;
 
 /**
  * Created with IntelliJ IDEA. User: tombeadman Date: 05/01/2014 Time: 01:36

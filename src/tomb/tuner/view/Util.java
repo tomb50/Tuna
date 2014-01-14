@@ -1,4 +1,4 @@
-package tomb.tuner.gui;
+package tomb.tuner.view;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -26,7 +26,7 @@ public class Util
     {
       System.err.print( "IOException when reading image for icon" );
     }
-    ;
+
 
     return imageIcon;
   }

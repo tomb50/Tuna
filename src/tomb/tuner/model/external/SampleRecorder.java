@@ -1,4 +1,4 @@
-package tomb.tuner.recorder;/*
+package tomb.tuner.model.external;/*
  *	SimpleAudioRecorder.java
  *
  *	This file is part of jsresources.org
@@ -36,16 +36,9 @@ package tomb.tuner.recorder;/*
 |<---            this code is formatted to fit into 80 columns             --->|
 */
 
-import java.io.IOException;
+import javax.sound.sampled.*;
 import java.io.File;
-
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.TargetDataLine;
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.AudioFileFormat;
+import java.io.IOException;
 
 
 
