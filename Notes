@@ -1,0 +1,37 @@
+middle C
+
+	•	this = {tomb.tuner.model.TunerModel@2055}
+	•	data = {byte[17640]@2061}
+	•	n = 32768
+	•	y = {double[32768]@2062}
+	•	x = {double[32768]@2063}
+	•	done = true
+	•	magnitude = {double[32768]@2064}
+	•	maxMagnitude = 45603.24987661534
+	•	maxIndex = 32623.0
+	•
+Middle C plus 1 octave
+
+	•	this = {tomb.tuner.model.TunerModel@2055}
+	•	data = {byte[17640]@2061}
+	•	n = 32768
+	•	y = {double[32768]@2062}
+	•	x = {double[32768]@2063}
+	•	done = true
+	•	magnitude = {double[32768]@2064}
+	•	maxMagnitude = 30961.529127298418
+	•	maxIndex = 32709.0
+
+middle C plus 2 octave
+
+	•	this = {tomb.tuner.model.TunerModel@2055}
+	•	data = {byte[17640]@2061}
+	•	n = 32768
+	•	y = {double[32768]@2062}
+	•	x = {double[32768]@2063}
+	•	done = true
+	•	magnitude = {double[32768]@2064}
+	•	maxMagnitude = 130646.32347809347
+	•	maxIndex = 31895.0
+	•
+

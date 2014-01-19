@@ -1,5 +1,6 @@
 package tomb.tuner.model;
 
+import tomb.tuner.model.external.FFT;
 import javax.sound.sampled.*;
 import java.io.ByteArrayOutputStream;
 
@@ -8,6 +9,7 @@ import java.io.ByteArrayOutputStream;
  */
 public class TunerModel
 {
+  private FFT fft;
   private static TunerModel instance = null;
   static Mixer.Info[] mixer_info = AudioSystem.getMixerInfo();
   private static boolean isRecording = false;
@@ -18,13 +20,14 @@ public class TunerModel
   SourceDataLine playbacksound;
   byte[] data; //temp stream data
   byte[] datamod; // manuipluated data sent back to output stream
+  float sampleRate = 44100.0F;
 
 
   public TunerModel()
   {
 
     format = new AudioFormat( AudioFormat.Encoding.PCM_SIGNED,
-                              44100.0F, 16, 2, 4, 44100.0F, false);
+                              sampleRate, 16, 2, 4, sampleRate, false);
     inInfo = new DataLine.Info(TargetDataLine.class, format);
 
     try
@@ -56,6 +59,7 @@ public class TunerModel
     while ( isRecording )
     {
       numBytesRead = microphoneLine.read( data, 0, data.length );
+      sendToFFT(data.clone());
       out.write( data, 0, numBytesRead );
     }
 
@@ -63,6 +67,53 @@ public class TunerModel
     datamod = out.toByteArray();
     manipulateAudio();
   }
+
+  private void sendToFFT( final byte[] data )
+  {
+    int n = upper_power_of_two( data.length);
+    double[] y = new double[n];
+    double[] x = new double[n];
+
+    for(int i = 0; i<data.length; i++)
+    {
+      x[i] = (double) data[i];
+
+    }
+    fft = new FFT(n);
+    fft.fft( x,y );
+
+    boolean done = true;
+
+    double[] magnitude = new double[n];
+    double maxMagnitude = 0;
+    double maxIndex = 0;
+
+    for(int i = 0; i < magnitude.length; i++ )
+    {
+      magnitude[i] = Math.sqrt ( (x[i]*x[i]) + (y[i]*y[i]) );
+      if(magnitude[i] > maxMagnitude)
+      {
+        maxMagnitude=magnitude[i];
+        maxIndex=i;
+      }
+    }
+
+    double frequency = (maxIndex * sampleRate)/n;
+
+  }
+
+  private int upper_power_of_two( int v)
+{
+  v--;
+  v |= v >> 1;
+  v |= v >> 2;
+  v |= v >> 4;
+  v |= v >> 8;
+  v |= v >> 16;
+  v++;
+  return v;
+
+}
 
   private void manipulateAudio()
   {
@@ -87,7 +138,8 @@ public class TunerModel
 
   public void playback()
   {
-
+    if(datamod !=null)
+    {
     try
     {
       playbacksound = AudioSystem.getSourceDataLine( format );
@@ -105,6 +157,11 @@ public class TunerModel
     }
     playbacksound.start();
     playbacksound.write( datamod,0,datamod.length );
+    playbacksound.stop();
+    playbacksound.close();
+     // datamod=null;
+    }
+
 
   }
 

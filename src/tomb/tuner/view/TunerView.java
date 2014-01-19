@@ -22,6 +22,9 @@ public class TunerView extends JFrame
   private ImageIcon haltImage;
   private JLabel imageLabel;
   private JButton playbackButton; // for testing audio capturing
+  private JLabel frequencyLabel;
+  private JLabel frequencyValue;
+
 
   
   public TunerView()
@@ -43,20 +46,22 @@ public class TunerView extends JFrame
   {
     setTitle( "Tomb Instrument Tuner!" );
     setDefaultCloseOperation( WindowConstants.EXIT_ON_CLOSE );
-    deviceLabel = new JLabel(  );
-    deviceLabel.setText( "Device:" );
+    deviceLabel = new JLabel( "Device" );
+    //deviceLabel.setText( "Device:" );
     deviceName = new JComboBox();
     deviceName.setPreferredSize( new Dimension( 20,5 ) );
-    recordButton = new JButton(  );
-    recordButton.setText( "Record" );
-    playbackButton = new JButton(  );
-    playbackButton.setText( "Playback!" );
-    noteLabel = new JLabel(  );
-    noteLabel.setText( "Note:" );
+    recordButton = new JButton( "Record" );
+    //recordButton.setText( "Record" );
+    playbackButton = new JButton( "Playback" );
+    //playbackButton.setText( "Playback!" );
+    noteLabel = new JLabel( "Note" );
+    //noteLabel.setText( "Note:" );
     noteTextField = new JTextField( );
-    imageLabel = new JLabel(  );
-    imageLabel.setIcon( haltImage );
+    imageLabel = new JLabel( haltImage );
+    //imageLabel.setIcon( haltImage );
     imageLabel.setSize( 50,50 );
+    frequencyLabel = new JLabel( "Frequency:" );
+    frequencyValue = new JLabel( "xxx hz" );
 
   }
 
@@ -80,7 +85,9 @@ public class TunerView extends JFrame
     add( deviceName, "wrap" );
     add(imageLabel);
     add(recordButton);
-    add(playbackButton);
+    add(playbackButton, "wrap");
+    add(frequencyLabel);
+    add(frequencyValue);
     pack();
   }
 
